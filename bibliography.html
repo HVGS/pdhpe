@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliography</title>
+    <style>
+        body {
+            background-color: #141414;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.4em;
+            font-weight: bolder;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #ffffff;
+        }
+
+        footer {
+            background-color: #333;
+            text-align: center;
+            padding: 10px;
+            color: #ffffff;
+            animation: fadeIn 1s ease-in-out;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        .bibliography-content {
+            padding: 40px;
+            margin: 20px auto;
+            max-width: 800px;
+            background-color: #2e2e2e;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            animation: slideIn 1s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .bibliography-content h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .bibliography-content p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #ffffff;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bibliography</h1>
+        <nav>
+            <ul>
+                <li><a>ISBN: 978-0-6550-4093-4 | ©FLEXIBOOKS | matilda education</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <footer>
+        <p>By the infamous Harry Mc, Willy B and Jakey F</p>
+        <a href=".." style="color: lightblue;">Back</a>
+    </footer>
+</body>
+</html>

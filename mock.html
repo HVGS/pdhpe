@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mock Chat Animation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1x4D3Ye4Fk/mVWxqasNhlk1NdzF5ikngbkKlVzCPr0/GKtVSmz6N/qjfo93Y6FdPmJVDy1ZCp7R5OqG5O3mwCg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<style>
+  html,
+  body {
+    background-color: #141414;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: Arial, sans-serif; /* Using Arial as the font family */
+  }
+
+  #chat-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #chat-input {
+    position: fixed;
+    bottom: 10px;
+    height: 40px;
+    width: 500px;
+    background-color: #242424;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  #chat-input:before,
+  #chat-input:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 12px;
+    bottom: 12px;
+    background-color: rgba(56, 56, 56, 0.4);
+  }
+
+  #chat-input:before {
+    cursor: text;
+    left: 52px;
+    width: 80%;
+    border-radius: 2px;
+  }
+
+  #chat-input:after {
+    cursor: pointer;
+    right: 10px;
+    width: 16px;
+    border-radius: 8px;
+  }
+
+  #chat-input #file-input {
+    cursor: pointer;
+    display: block;
+    border-right: 2px solid #292929;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    bottom: 2px;
+    width: 36px;
+    transition: background-color 60ms;
+  }
+
+  #chat-input #file-input:hover {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    background-color: #474747;
+    border-right: 0;
+    transition: background-color 120ms;
+  }
+
+  #chat-input #file-input:before,
+  #chat-input #file-input:after {
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: #383838;
+  }
+
+  #chat-input #file-input:before {
+    top: 30%;
+    bottom: 30%;
+    left: 50%;
+    width: 2px;
+    margin-left: -1px;
+  }
+
+  #chat-input #file-input:after {
+    left: 30%;
+    right: 30%;
+    top: 50%;
+    height: 2px;
+    margin-top: -1px;
+  }
+
+  .chat {
+    position: fixed;
+    bottom: 60px;
+    width: 600px;
+    display: inline-block;
+  }
+
+  .line-container {
+    overflow: hidden;
+    border-radius: 6px;
+    max-height: 0px;
+    opacity: 0;
+    transform: translateX(-300px) scale(0.2);
+    transition: margin-bottom 200ms, max-height 500ms, opacity 100ms, transform 250ms;
+    transition-timing-function: ease-out;
+  }
+
+  .line-container:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  .line {
+    padding: 10px;
+    background-color: #242424;
+  }
+
+  .line > div {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .profile-img {
+    cursor: pointer;
+    border-radius: 6px;
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+    position: relative; /* Make position relative */
+  }
+
+  .profile-img .fas.fa-user {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white; /* Icon color */
+    font-size: 30px; /* Icon size */
+}
+
+  .name {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .text {
+    font-size: 16px;
+    color: white;
+  }
+
+  /* custom color classes for the profile images */
+  .red { background-color: #FF5733; }
+  .green { background-color: #6DA153; }
+  .blue { background-color: #4387E1; }
+  .purple { background-color: #A343E1; }
+  .yellow { background-color: #E1D843; }
+  .orange { background-color: #E18743; }
+  .pink { background-color: #E14594; }
+  .cyan { background-color: #45E1E1; }
+</style>
+<body>
+<div id="chat-container">
+  <div id="chat-input">
+    <div id="file-input"></div>
+  </div>
+</div>
+<script>
+  let amountOfColors = 10; // Adjust the number of colors based on the number of unique names
+
+  let container = document.getElementById('chat-container');
+  let lineWidth = 500;
+  let profileImgWidth = 60;
+  let textWidth = lineWidth - 20 - profileImgWidth - 10;
+  let chats = [];
+  let maxTexts = 4;
+
+  let fakeNames = ["John", "Emma", "David", "Sophia", "Michael", "Olivia", "James", "Ava"];
+  let fakeMessages = ["You're such a loser!", "Nobody likes you.", "You'll never succeed.", "Why are you even here?", "Go away, nobody wants you here.", "You're a waste of space.", "You're a failure.", "Nobody cares about you.", "You're worthless.", "You're a pathetic excuse for a human being.", "Nobody will ever love someone as repulsive as you.", "Your existence is utterly meaningless.", "You're a waste of oxygen and resources.", "I've seen more intelligence in a pile of rocks.", "You're so ugly, even a blind person would cringe.", "You're destined for failure in everything you do.", "You're so incompetent, it's a wonder you can even function.", "You're nothing but a burden to everyone around you.", "I wouldn't trust you to tie your own shoelaces correctly.", "Your presence is like a black hole, sucking the joy out of everything.", "You're the epitome of mediocrity.", "You're a disappointment to your family and friends.", "You're as useful as a screen door on a submarine.", "You're so spineless, you couldn't stand up straight in a hurricane."]; // Adding more mean messages
+
+  function getRandomItem(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
+
+  function createElement(opts = {}) {
+    let ele = document.createElement('div');
+    if ('class' in opts) {
+      if (!Array.isArray(opts.class)) {
+        opts.class = [opts.class];
+      }
+      ele.classList.add(...opts.class);
+    }
+    return ele;
+  }
+
+  function addChat() {
+    let chat = new Chat();
+    chats.push(chat);
+    setTimeout(() => chat.loop(), 200);
+    return chat;
+  }
+
+  class Chat {
+    constructor() {
+      this.ele = createElement({ class: 'chat' });
+      this.lines = [];
+      this.anim = null;
+      container.appendChild(this.ele);
+    }
+    addLine() {
+      let l = new Line();
+      this.lines.push(l);
+      this.ele.appendChild(l.ele.lineContainer);
+      return l;
+    }
+    removeOldest() {
+      let maxCount = Math.ceil(window.innerHeight / 1080 * 12);
+      if (this.lines.length > maxCount) {
+        let oldest = this.lines.splice(0, this.lines.length - maxCount);
+        oldest.forEach(n => this.ele.removeChild(n.ele.lineContainer));
+      }
+    }
+    loop() {
+      if (this.anim) {
+        this.stopLoop();
+      }
+      this.addLine();
+      this.removeOldest();
+      this.anim = setTimeout(() => this.loop(), Math.random() * 1300 + 180);
+    }
+    stopLoop() {
+      clearTimeout(this.anim);
+      this.anim = null;
+    }
+  }
+
+  class Line {
+    constructor() {
+      this.pickName();
+      this.pickText();
+      this.setupElements();
+      this.animateIn();
+    }
+
+    pickName() {
+      this.name = getRandomItem(fakeNames);
+    }
+
+    pickText() {
+      this.text = getRandomItem(fakeMessages);
+    }
+
+    setupElements() {
+      let ele = this.createElement();
+      this.ele = ele;
+      ele.name.textContent = this.name;
+      ele.text.textContent = this.text;
+      // Assigning class based on the name for the profile image
+      ele.profileImg.classList.add(getColorClass(this.name.toLowerCase()));
+    }
+
+    animateIn() {
+      let delay = 35; // Some times it won't animate correctly without this
+      let ele = this.ele;
+      setTimeout(() => {
+        ele.lineContainer.style.opacity = 1;
+        ele.lineContainer.style.maxHeight = '200px';
+        ele.lineContainer.style.transform = 'translateX(0px) scale(1)';
+      }, delay);
+
+      let otherEleList = [ele.profileImg, ele.name, ele.text];
+
+      delay += 40;
+
+      otherEleList.forEach((e, i) => {
+        setTimeout(() => {
+          e.style.opacity = 1;
+          e.style.transform = 'translateY(0px)';
+        }, delay += 50);
+      });
+    }
+
+    createElement() {
+      let lineContainer = createElement({ class: 'line-container' });
+      let line = createElement({ class: 'line' });
+      let profileImg = createElement({ class: 'profile-img' });
+      // Adding FontAwesome icon inside the profile image
+      profileImg.innerHTML = '<i class="fas fa-user"></i>';
+      let body = createElement({ class: 'body' });
+      let name = createElement({ class: 'name' });
+      let text = createElement({ class: 'text' });
+
+      line.appendChild(profileImg);
+      body.appendChild(name);
+      body.appendChild(text);
+      line.appendChild(body);
+      lineContainer.appendChild(line);
+
+      let out = { lineContainer, line, profileImg, body, name, text };
+      return out;
+    }
+  }
+
+  function loop() {
+    chats.forEach(n => n.loop());
+  }
+
+  function stopLoop() {
+    chats.forEach(n => n.stopLoop());
+  }
+
+  function getColorClass(name) {
+    switch (name) {
+      case 'john':
+        return 'red';
+      case 'emma':
+        return 'green';
+      case 'david':
+        return 'blue';
+      case 'sophia':
+        return 'purple';
+      case 'michael':
+        return 'yellow';
+      case 'olivia':
+        return 'orange';
+      case 'james':
+        return 'pink';
+      case 'ava':
+        return 'cyan';
+      default:
+        return '';
+    }
+  }
+
+  (() => addChat())();
+</script>
+</body>
+</html>

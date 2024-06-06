@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDHPE | Bullying</title>
+    <style>
+        body {
+            background-color: #141414;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #ffffff;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        section {
+            padding: 40px;
+            margin: 20px auto;
+            max-width: 800px;
+            background-color: #2e2e2e;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            animation: slideIn 1s ease-in-out;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        p, ul {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+
+        .contact-box {
+            background-color: #fff;
+            color: #000;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            height: 100px;
+        }
+
+        .contact-box img {
+            width: 160px;
+            height: 50px;
+            margin-right: 200px;
+            position: absolute;
+            top: 180px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .contact-box a {
+            color: #000;
+            text-decoration: none;
+            margin-top: 45px;
+            position: absolute;
+            margin-left: 35%;
+            transition: 1.3s;
+        }
+
+        .contact-box a:hover {
+            text-decoration: underline;
+            transform: scale(1.1);
+            color: lightblue;
+        }
+
+        footer {
+            background-color: #333;
+            text-align: center;
+            padding: 10px;
+            color: #ffffff;
+            animation: fadeIn 1s ease-in-out;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 15px;
+        }
+
+        /* Style scrollbar */
+        ::-webkit-scrollbar {
+            width: 15px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #333;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #000;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .bullying-section {
+            display: flex;
+        }
+
+        .bullying-types {
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            align-items: center;
+        }
+
+        .bullying-type {
+        background-color: #444;
+        color: #fff;
+        padding: 20px;
+        margin: 5px 0;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        width: 80%;
+        text-align: center;
+        border: 2px solid #141414;
+        font-size: large;
+}
+
+
+        .bullying-type:hover {
+            background-color: #555;
+        }
+
+        .description-container {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .description {
+            display: none;
+            background-color: #555;
+            color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 1.5em;
+            width: 80%;
+            text-align: center;
+            border: 2px solid #141414;
+        }
+
+        .default-description {
+            display: block;
+            background-color: #555;
+            color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 1.5em;
+            width: 80%;
+            text-align: center;
+            border: 2px solid #141414;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Safe Spaces</h1>
+        <nav>
+            <ul>
+                <li><a href="#cyberbullying">What is Cyberbullying?</a></li>
+                <li><a href="#tips">Tips to Be Cybersafe</a></li>
+                <li><a href="#local-help">Local Help</a></li>
+                <li><a href="#online-help">Online Help</a></li>
+                <li><a href="#bullying-types">Types of Bullying</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="cyberbullying">
+        <h2>What is Cyberbullying?</h2>
+        <p>Cyberbullying is bullying that takes place over digital devices like cell phones, computers, and tablets...</p>
+
+        <!-- Mock Chat Animation -->
+        <iframe src="mock.html" frameborder="1"></iframe>
+    </section>
+
+    <section id="tips">
+        <h2>Tips to Be Cybersafe</h2>
+        <ul>
+            <li>Adjust privacy settings on social media.</li>
+            <li>Think before you post.</li>
+            <li>Block and report bullies.</li>
+            <li>Maintain a positive digital footprint.</li>
+        </ul>
+    </section>
+
+    <section id="local-help">
+        <h2>Local Help</h2>
+        <p>Contact one of the school psychologists today:</p>
+        <ul>
+            <li><a href="mailto:harperp@hvgs.nsw.edu.au" style="color: lightblue;">Peita Harper</a></li>
+            <li><a href="mailto:harrisg@hvgs.nsw.edu.au" style="color: lightblue;">Genevieve Harris</a></li>
+            <li><a href="mailto:lightfootj@hvgs.nsw.edu.au" style="color: lightblue;">Jeanette Lightfoot</a></li>
+        </ul>
+    </section>
+
+    <section id="online-help">
+        <h2>Online Help</h2>
+        <p>Reach out to online helplines like the National Suicide Prevention Lifeline and Crisis Text Line.</p>
+        <div class="contact-box">
+            <img src="assets/khl.png" alt="Kids Helpline">
+            <div>
+                <a href="https://apps.yourtown.com.au/apps/webcounselling/live/chat" target="_blank"><span class="icon">💬</span>Chat</a><br>
+                <a href="tel:1800551800" target="_blank"><span class="icon">📞</span>1800 55 1800</a><br>
+                <a href="https://kidshelpline.com.au" target="_blank">https://kidshelpline.com.au</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="bullying-types">
+        <h2>Types of Bullying</h2>
+        <div class="bullying-section">
+            <div class="bullying-types">
+                <div class="bullying-type" onclick="showDescription('physical')">Physical</div>
+                <div class="bullying-type" onclick="showDescription('isolation')">Isolation</div>
+                <div class="bullying-type" onclick="showDescription('threats')">Threats</div>
+                <div class="bullying-type" onclick="showDescription('discrimination')">Discrimination</div>
+                <div class="bullying-type" onclick="showDescription('making-light')">Making light of an issue</div>
+                <div class="bullying-type" onclick="showDescription('denial-blame')">Denial & Blame</div>
+                <div class="bullying-type" onclick="showDescription('excuses')">Excuses</div>
+                <div class="bullying-type" onclick="showDescription('emotional-intimidation')">Emotional Intimidation</div>
+            </div>
+
+            <div class="description-container">
+                <div class="default-description" id="default-description">Press any button</div>
+                <div id="physical" class="description">Any physical act against a person or their property.</div>
+                <div id="isolation" class="description">Any form of control based on excluding others e.g. whispering, gossiping, and jealousy.</div>
+                <div id="threats" class="description">Making or carrying out threats or manipulation. 'If you don't do what I want, then I'll...' 'I won't be your friend if you do/don't...' 'You have to because...'</div>
+                <div id="discrimination" class="description">Manipulating or excluding based on position, influence, status, race, looks, gender or age. 'I can, but you can't.'</div>
+                <div id="making-light" class="description">'You're too sensitive!' 'I didn't hurt you that bad!' 'All the new kids get bullied.'</div>
+                <div id="denial-blame" class="description">Refusing to take responsibility for bullying behavior.</div>
+                <div id="excuses" class="description">Shifting responsibility for behavior 'I did it because...' 'You deserved it because...'</div>
+                <div id="emotional-intimidation" class="description">Any form of name-calling, put down, teasing, shaming, ridicule, humiliation, harassment or manipulation.</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>By the infamous Harry Mc, Willy B and Jakey F</p>
+        <a href="bibliography.html" target="_blank" style="color: lightblue">Bibliography</a>
+    </footer>
+
+    <div style="width: 100%;"><p style="color:#141414">hello</p></div>
+
+    <script>
+        function showDescription(type) {
+            var descriptions = document.querySelectorAll('.description');
+            descriptions.forEach(function(desc) {
+                desc.style.display = 'none';
+            });
+
+            document.getElementById('default-description').style.display = 'none';
+            document.getElementById(type).style.display = 'block';
+        }
+    </script>
+</body>
+</html>
